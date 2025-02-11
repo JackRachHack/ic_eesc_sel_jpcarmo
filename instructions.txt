@@ -1,9 +1,11 @@
 First instructions:
 
-	- Create code just for testing the shift register, with fixed numbers, just lik
-	e in the reference sheet of paper.
+	- Continue implementing others necessary features of the code for the first 
+	test.
 	
 	- Using arduino's source of 5v (do a quick research regarding its reliance), po
 	wer the IC, using the outs of the Arduino to give out signals.
 
 	- Speak with Roseli 16 33739368 to grant to us access to the building.
+
+	- Might have to copy a key for youself.
