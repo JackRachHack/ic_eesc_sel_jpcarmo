@@ -1,23 +1,17 @@
 void signals_shift_register_with_delay() {
   // Apparently, the IC recognizes state in descending edge.
 
-  // Our clock signal, no delays, is  around 42.74kHz.
+  // Our clock signal "CLK" for the IC, no delays, is  around 42.74kHz.
    
   // There seems to be a faster way to write to a pin using direct register manipulation
   // instead of digitalWrite.
 
-  // The reason why this isnt a for loop is to use the maximum frequency available.
-  // Note that the second Shift_IN signal isnt necessary if its the same
+  // The reason why this isnt a for loop is so that we can use the maximum frequency 
+  // available.
+  // Note that the second Shift_IN signal in every bit isnt necessary if its the same.
 
-  // bit 0
-  digitalWrite(SHIFT_IN, bit0);
-  delayMicroseconds(DELAY);
-  digitalWrite(CLK, HIGH);
-  delayMicroseconds(DELAY);
-  digitalWrite(SHIFT_IN, bit0); // Value stored
-  delayMicroseconds(DELAY);
-  digitalWrite(CLK, LOW);
-  delayMicroseconds(DELAY);
+  // The first bit to be programmed is bit1, bit0 is the last one. bit7 is external.
+
 
   // bit 1
   digitalWrite(SHIFT_IN, bit1);
@@ -85,6 +79,16 @@ void signals_shift_register_with_delay() {
   digitalWrite(CLK, HIGH);
   delayMicroseconds(DELAY);
   digitalWrite(SHIFT_IN, bit7); // Value stored
+  delayMicroseconds(DELAY);
+  digitalWrite(CLK, LOW);
+  delayMicroseconds(DELAY);
+
+  // bit 0
+  digitalWrite(SHIFT_IN, bit0);
+  delayMicroseconds(DELAY);
+  digitalWrite(CLK, HIGH);
+  delayMicroseconds(DELAY);
+  digitalWrite(SHIFT_IN, bit0); // Value stored
   delayMicroseconds(DELAY);
   digitalWrite(CLK, LOW);
   delayMicroseconds(DELAY);
