@@ -62,7 +62,7 @@ void loop() {
 
       // Activating and deactivating RES 
       digitalWrite(RES, HIGH);
-      delayMicroseconds(24*3); 
+      delayMicroseconds(24*3); // This is 24 is the period.
       digitalWrite(RES, LOW);
 
       // Activating and deactivating SEL enable
@@ -76,12 +76,12 @@ void loop() {
 
       // Activating and deactivating RES 
       digitalWrite(RES, HIGH);
-      delayMicroseconds(DELAY*4); 
+      delayMicroseconds(DELAY*4*3); // "Delay*4" consist in one period
       digitalWrite(RES, LOW);
 
       // Activating and deactivating SEL enable
       digitalWrite(SEL, HIGH);
-      delayMicroseconds(DELAY*4);
+      delayMicroseconds(DELAY*4*3);
       digitalWrite(SEL, LOW);
     }
   }
