@@ -13,3 +13,9 @@ int cell_number = 4;
 
 // Global variable to choose frequency
 bool freq_en = false;
+
+// ================================================
+
+// Global variable for frequency of the clock in hertz (if its being used) (CANT EXCEED 42740!!!)
+int freq = 500;
+int DELAY; // To be defined and used in the signals functions

@@ -10,20 +10,6 @@
 #define SHIFT_IN 7
 #define CLK 5 
 
-// Defining frequency of the clock in hertz (if its being used) (CANT EXCEED 42740!!!)
-#define FREQ 500
-
-const int32_t DELAY = round((1.0/FREQ - 0.0000234)*1e6/4); // Can be manually callibrated
-// So, a frequency (FREQ) is defined. The period is calculated. Since the microcontroler
-// spends 0.000234s with the basic writings instructions, it is taken into account. Then
-// its divided by 4, because the delay is distributed between the 4 writings. Then its 
-// multiplied by 1e6 to be in the form of microseconds for the delayMicroseconds() function.
-// Since the delay function expects an integer, there will be error in the output frequency
-// due to roundings, mainly with high frequencies that border the limit (42.74kHz).
-
-// This int32_t type isn't needed, I am just exercising. If you want, change it to "int"
-// and erase "#include <stdint.h>"
-
 // Functions
 #include "signals_shift_register_no_delay.h" // Frequency around 42.74 kHz (maximum)
 #include "signals_shift_register_with_delay.h"
@@ -45,29 +31,81 @@ void setup() {
   digitalWrite(RES, 0);
   digitalWrite(VBIAS, 0);
 
-  
+  // ==========THERE ARE TOO MANY LOOPS, IMPLEMENT THE FOLLOWING FUNCTION (available in the gpt history)
+
+  /*
+  int getValidIntFromSerial(const char* prompt, int minVal, int maxVal) {
+    int value;
+    while (true) {
+        Serial.println(prompt);
+        while (!Serial.available()); // Espera até receber entrada
+        value = Serial.parseInt();
+        if (value >= minVal && value <= maxVal) {
+            return value;
+        }
+        Serial.println("Valor inválido. Tente novamente.");
+    }
+}
+
+  */
   // Setting Up the signals
-  Serial.println("Do you want set a frequency? If not, the maximum will be used. (1-0;yes-no)");
-  while (1){
+  Serial.println("Do you want set a frequency? If not, the maximum will be used. (1-yes;0-no)");
+  while (1){ // Loop to get a valid information from the user
     while(!Serial.available()){
-      // Waiting until there is something in serial conection
+      // Waiting until there is something in the serial conection
     }
 
     int response = Serial.parseInt();
 
-    if(response == 0 || response == 1) {
+    if(response == 0 || response == 1) { // If 1 or 0, we get the freq or not and break (IF1_BEGIN)
+      
       freq_en = (bool)response;
+      if (freq_en) { // If 1, get the value (IF2_BEGIN)
+        while(1){ // Loop to get a valid information from the user
+          Serial.println("Insert a number from 1 to 42739 to be the frequency");
+          while(!Serial.available()){
+            // Waiting until there is something in the serial conection
+          }
+          
+          freq = Serial.parseInt(); 
+
+          if (freq > 0 && freq < 42740) break;     
+        
+          Serial.println("Invalid number");
+        }        
+      }// (IF2_BEGIN)
+      
+      // Getting pixel number
+      while(1){ // Loop to get a valid information from the user
+        Serial.println("Choose the pixel wanted (0-7)(7 is the extern)");
+        while(!Serial.available()){
+          // Waiting until there is something in the serial conection
+        }
+
+        response = Serial.parseInt();
+
+        if (response > -1 && response < 8) {
+          cell_number = response;
+          break;
+        }
+        Serial.println("Invalid number");
+      } 
       break;
-    }
+    }// (IF1_END)
+    Serial.println("Invalid number");  
   }
 
+  // Function that chooses pixel by shaping the signal
+  choosing_cell_with_register(cell_number);
 
-  
-  
-
-  // Selecting pixel
-  choosing_cell_with_register(cell_number); // Choose one cell between 1-8
-
+  // Setting needed delay time for the functions
+  int DELAY = round((1.0/freq - 0.0000234)*1e6/4); 
+  // So, a frequency (freq) is defined. The period is calculated. Since the microcontroler
+  // spends 0.000234s with the basic writings instructions, it is taken into account. Then
+  // its divided by 4, because the delay is distributed between the 4 writings. Then its 
+  // multiplied by 1e6 to be in the form of microseconds for the delayMicroseconds() function.
+  // Since the delay function expects an integer, there will be an error in the output frequency
+  // due to roundings, mainly with high frequencies that border the limit (42.74kHz).
 }
 
 void loop() {
