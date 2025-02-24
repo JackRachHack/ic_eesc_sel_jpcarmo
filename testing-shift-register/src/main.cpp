@@ -31,6 +31,8 @@ const int32_t DELAY = round((1.0/FREQ - 0.0000234)*1e6/4); // Can be manually ca
 
 void setup() {
 
+  Serial.begin(115200);
+
   // Setting up the digital ports
   pinMode(SEL, OUTPUT);
   pinMode(RES, OUTPUT);
@@ -42,6 +44,25 @@ void setup() {
   digitalWrite(SEL, 0);
   digitalWrite(RES, 0);
   digitalWrite(VBIAS, 0);
+
+  
+  // Setting Up the signals
+  Serial.println("Do you want set a frequency? If not, the maximum will be used. (1-0;yes-no)");
+  while (1){
+    while(!Serial.available()){
+      // Waiting until there is something in serial conection
+    }
+
+    int response = Serial.parseInt();
+
+    if(response == 0 || response == 1) {
+      freq_en = (bool)response;
+      break;
+    }
+  }
+
+
+  
   
 
   // Selecting pixel
@@ -56,21 +77,7 @@ void loop() {
 
     // Pixel (cell) was picked in Setup (for this example, bit 4, or pixel 5)
 
-    if(true){
-      // Sending the signals CLK and Shift_IN (maximum frequency)
-      signals_shift_register_no_delay();
-
-      // Activating and deactivating RES 
-      digitalWrite(RES, HIGH);
-      delayMicroseconds(24*3); // This is 24 is the period.
-      digitalWrite(RES, LOW);
-
-      // Activating and deactivating SEL enable
-      digitalWrite(SEL, HIGH);
-      delayMicroseconds(24*3);
-      digitalWrite(SEL, LOW);
-
-    } else{
+    if(freq_en){
       // Sending the signals CLK and Shift_IN, with the frequency determinated by FREQ
       signals_shift_register_with_delay();
 
@@ -82,6 +89,20 @@ void loop() {
       // Activating and deactivating SEL enable
       digitalWrite(SEL, HIGH);
       delayMicroseconds(DELAY*4*3);
+      digitalWrite(SEL, LOW); 
+
+    } else{
+      // Sending the signals CLK and Shift_IN (maximum frequency)
+      signals_shift_register_no_delay();
+
+      // Activating and deactivating RES 
+      digitalWrite(RES, HIGH);
+      delayMicroseconds(24*3); // This is 24 is the period.
+      digitalWrite(RES, LOW);
+
+      // Activating and deactivating SEL enable
+      digitalWrite(SEL, HIGH);
+      delayMicroseconds(24*3);
       digitalWrite(SEL, LOW);
     }
   }

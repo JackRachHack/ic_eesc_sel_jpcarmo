@@ -10,3 +10,6 @@ bool bit0 = false; // 0
 
 // Global int variable to select cell
 int cell_number = 4;
+
+// Global variable to choose frequency
+bool freq_en = false;
