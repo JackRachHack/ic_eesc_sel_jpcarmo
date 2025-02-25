@@ -2,6 +2,9 @@
 #include <stdint.h> 
 #include "declarations.h" // Declares global variables to be used in the process
 
+//================IMPLEMENT PLEASE A WAY TO HAVE DEFAULT VALUES IF THERE IS NO SERIAL CONECTION
+
+
 // Digital ports assignments
 #define SEL 13
 #define RES 11
@@ -15,9 +18,6 @@
 #include "other_functions.h"
 
 void setup() {
-
-  Serial.begin(115200);
-
   // Setting up the digital ports
   pinMode(SEL, OUTPUT);
   pinMode(RES, OUTPUT);
@@ -30,6 +30,7 @@ void setup() {
   digitalWrite(RES, 0);
   digitalWrite(VBIAS, 0);
 
+  Serial.begin(115200);
   
   // Getting and setting Up the signals
   Serial.println("Do you want set a frequency? If not, the maximum will be used. (anyInt-yes;0-no)");
@@ -42,12 +43,17 @@ void setup() {
   // Get pixel number
   cell_number = getValidIntFromSerial("Choose the pixel wanted (0-7)(7 is the extern)", 0, 7);       
   choosing_cell_with_register(cell_number); // Function that chooses pixel by shaping the signal
+  Serial.println ("All set!!!\n");
 
   // Setting needed delay time for the functions
   DELAY = (int) round((1.0/freq - 0.0000234)*1e6/4); 
   // Define the delay time based on the frequency wanted
   // Take the time of basic instructions (~23.4µs) into account and devide it in 
   // four equal parts in between the cicle
+  if (DELAY<=0) {
+    freq_en = false; // If the delay turns out zero or less, we use the no_delay function
+    Serial.println ("The frequency was set up to the maximum, since the number required is beyond the limit.");
+  }
 }
 
 void loop() {  

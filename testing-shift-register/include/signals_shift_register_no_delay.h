@@ -7,7 +7,6 @@ void signals_shift_register_no_delay() {
   // instead of digitalWrite.
 
   // The reason why this isnt a for loop is to use the maximum frequency available.
-  // Note that the second Shift_IN signal isnt necessary if its the same
 
   // The first bit to be programmed is bit1, bit0 is the last one. bit7 is external.
 

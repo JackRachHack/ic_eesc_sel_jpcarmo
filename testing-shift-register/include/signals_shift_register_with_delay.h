@@ -8,7 +8,6 @@ void signals_shift_register_with_delay() {
 
   // The reason why this isnt a for loop is so that we can use the maximum frequency 
   // available.
-  // Note that the second Shift_IN signal in every bit isnt necessary if its the same.
 
   // The first bit to be programmed is bit1, bit0 is the last one. bit7 is external.
 
