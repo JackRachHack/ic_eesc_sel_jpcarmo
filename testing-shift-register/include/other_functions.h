@@ -1,6 +1,4 @@
 void choosing_cell_with_register(int cell_num) {
-    if (cell_num < 0 || cell_num > 7) cell_num = -1; // If outside boundaries, all of them are zero
-
     bit1 = (cell_num == 1);
     bit2 = (cell_num == 2);
     bit3 = (cell_num == 3);
