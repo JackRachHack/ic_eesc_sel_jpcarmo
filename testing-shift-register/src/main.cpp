@@ -6,9 +6,9 @@
 
 
 // Digital ports assignments
-#define SEL 13
+#define SEL_en 13
 #define RES 11
-#define VBIAS 9
+#define VBIAS 9 
 #define SHIFT_IN 7
 #define CLK 5 
 
@@ -19,16 +19,18 @@
 
 void setup() {
   // Setting up the digital ports
-  pinMode(SEL, OUTPUT);
+  pinMode(SEL_en, OUTPUT);
   pinMode(RES, OUTPUT);
   pinMode(VBIAS, OUTPUT);
   pinMode(SHIFT_IN, OUTPUT);
   pinMode(CLK, OUTPUT);
 
   // Setup VBIAS, RES and SEL to 0V
-  digitalWrite(SEL, 0);
+  digitalWrite(SEL_en, 0);
   digitalWrite(RES, 0);
-  digitalWrite(VBIAS, 0);
+  digitalWrite(VBIAS, 0); // Remember that VBIAS is a analog voltage, not digital, so, if 
+  // it is ever needed, you must use a resistor in series with a capacitor to make the signal
+  // a steady voltage, since it is PWM. 
 
   Serial.begin(115200);
   
@@ -41,7 +43,7 @@ void setup() {
   if (freq_en) freq = getValidIntFromSerial("Insert a number from 1 to 42739 to be the frequency", 1, 42739);       
   
   // Get pixel number
-  cell_number = getValidIntFromSerial("Choose the pixel wanted (0-7)(7 is the extern)", 0, 7);       
+  cell_number = getValidIntFromSerial("Choose the pixel wanted (0-7)(7 is the extern)\nWe are using cell 4, for tests!!", 0, 7);       
   choosing_cell_with_register(cell_number); // Function that chooses pixel by shaping the signal
   Serial.println ("All set!!!\n");
 
@@ -54,41 +56,34 @@ void setup() {
     freq_en = false; // If the delay turns out zero or less, we use the no_delay function
     Serial.println ("The frequency was set up to the maximum, since the number required is beyond the limit.");
   }
+
+  // Selecting the cell already, because it just need to be selected one time, at least for
+  // the testing. Hence, it is here in Setup function.
+  if(freq_en){
+    // Sending the signals CLK and Shift_IN, with the frequency determinated by FREQ
+    signals_shift_register_with_delay();
+  } else{
+    // Sending the signals CLK and Shift_IN (maximum frequency)
+    signals_shift_register_no_delay();
+  }
 }
 
 void loop() {  
   while(1){ // While here is redundant and it is part of a test of mine
     // VBIAS was set to 0 in Setup
 
-    // Pixel (cell) was picked in Setup 
+    // Pixel (cell) was picked and set in Setup 
 
-    if(freq_en){
-      // Sending the signals CLK and Shift_IN, with the frequency determinated by FREQ
-      signals_shift_register_with_delay();
+    // Activating and deactivating RES 
+    digitalWrite(RES, HIGH);
+    (freq_en) ? delayMicroseconds(DELAY*4*3) : delayMicroseconds(24*3); // "Delay*4" and 24 consist in one period
+    digitalWrite(RES, LOW);
 
-      // Activating and deactivating RES 
-      digitalWrite(RES, HIGH);
-      delayMicroseconds(DELAY*4*3); // "Delay*4" consist in one period
-      digitalWrite(RES, LOW);
-
-      // Activating and deactivating SEL enable
-      digitalWrite(SEL, HIGH);
-      delayMicroseconds(DELAY*4*3);
-      digitalWrite(SEL, LOW); 
-
-    } else{
-      // Sending the signals CLK and Shift_IN (maximum frequency)
-      signals_shift_register_no_delay();
-
-      // Activating and deactivating RES 
-      digitalWrite(RES, HIGH);
-      delayMicroseconds(24*3); // This is 24 is the period.
-      digitalWrite(RES, LOW);
-
-      // Activating and deactivating SEL enable
-      digitalWrite(SEL, HIGH);
-      delayMicroseconds(24*3);
-      digitalWrite(SEL, LOW);
-    }
+    // Activating and deactivating SEL enable
+    digitalWrite(SEL_en, HIGH);
+    (freq_en) ? delayMicroseconds(DELAY*4*10) : delayMicroseconds(24*10); // Time to see the signal of 'saida' rising. 
+    // You can modify if needed 
+    // digitalWrite(SEL_en, LOW); // It doesnt make much of a difference if you LOW this while we are
+    // measuring. 
   }
 }

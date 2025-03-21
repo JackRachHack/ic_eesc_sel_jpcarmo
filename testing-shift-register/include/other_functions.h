@@ -1,4 +1,5 @@
 void choosing_cell_with_register(int cell_num) {
+    bit0 = (cell_num == 0);
     bit1 = (cell_num == 1);
     bit2 = (cell_num == 2);
     bit3 = (cell_num == 3);
@@ -6,7 +7,6 @@ void choosing_cell_with_register(int cell_num) {
     bit5 = (cell_num == 5);
     bit6 = (cell_num == 6);
     bit7 = (cell_num == 7);
-    bit0 = (cell_num == 0);
 }
 
 int getValidIntFromSerial(const char* prompt, int minVal, long int maxVal) {
