@@ -5,6 +5,13 @@
 //================IMPLEMENT PLEASE A WAY TO HAVE DEFAULT VALUES IF THERE IS NO SERIAL CONECTION
 
 
+// Testing instructions: 1) connect all the pins needed accoding to schematics in e_mail
+//                       2) provide a 1k resistor to use aswell
+//                       3) set cell 4 
+//                       4) set the physical connections
+//                       5) set the oscilloscope to read 'saída' and 'coluna'
+//                       6) turn on the circuit 
+
 // Digital ports assignments
 #define SEL_en 13
 #define RES 11
