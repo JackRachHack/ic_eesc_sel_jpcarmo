@@ -3,7 +3,7 @@
 #include "declarations.h" // Declares global variables to be used in the process
 
 //================IMPLEMENT PLEASE A WAY TO HAVE DEFAULT VALUES IF THERE IS NO SERIAL CONECTION
-
+//================MORE IMPORTANT: IMPLEMENT DIRECT REGISTER MANIPULATION INSTEAD OF DIGITAL WRITE
 
 // Testing instructions: 1) connect all the pins needed accoding to schematics in e_mail
 //                       2) provide a 1k resistor to use aswell
