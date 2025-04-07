@@ -2,7 +2,7 @@
 
 It seems to be working fine, but there must be more analysis. 
 Waiting time was set to 2 cycle from 10. Top frequency was used. 
-After the logaritmic part showed by saida, there were a wild 
+After the (1-e^(-t...)) part showed by saida, there were a wild 
     signal (something about 30 maybe 40 percent higher or lower 
     than the function setting point) until next RES.
 
