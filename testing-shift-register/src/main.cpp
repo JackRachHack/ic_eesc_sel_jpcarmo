@@ -4,6 +4,7 @@
 
 //================IMPLEMENT PLEASE A WAY TO HAVE DEFAULT VALUES IF THERE IS NO SERIAL CONECTION
 //================MORE IMPORTANT: IMPLEMENT DIRECT REGISTER MANIPULATION INSTEAD OF DIGITAL WRITE
+//================IMPORTANT: Delay function in micro has a limit value of 16k. That is bugging our RES output in lower frequencies. Change to Delay past a freq value.
 
 // Testing instructions: 1) connect all the pins needed accoding to schematics in e_mail
 //                       2) provide a 1k resistor to use aswell
@@ -64,7 +65,21 @@ void setup() {
     Serial.println ("The frequency was set up to the maximum, since the number required is beyond the limit.");
   }
 
-  // Selecting the cell already, because it just need to be selected one time, at least for
+  // // Selecting the cell already, because it just need to be selected one time, at least for
+  // // the testing. Hence, it is here in Setup function.
+  // if(freq_en){
+  //   // Sending the signals CLK and Shift_IN, with the frequency determinated by FREQ
+  //   signals_shift_register_with_delay();
+  // } else{
+  //   // Sending the signals CLK and Shift_IN (maximum frequency)
+  //   signals_shift_register_no_delay();
+  // }
+}
+
+void loop() {  
+  while(1){ // While here is redundant and it is part of a test of mine
+
+    // Selecting the cell already, because it just need to be selected one time, at least for
   // the testing. Hence, it is here in Setup function.
   if(freq_en){
     // Sending the signals CLK and Shift_IN, with the frequency determinated by FREQ
@@ -73,10 +88,6 @@ void setup() {
     // Sending the signals CLK and Shift_IN (maximum frequency)
     signals_shift_register_no_delay();
   }
-}
-
-void loop() {  
-  while(1){ // While here is redundant and it is part of a test of mine
     // VBIAS was set to 0 in Setup
 
     // Pixel (cell) was picked and set in Setup 
