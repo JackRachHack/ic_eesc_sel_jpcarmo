@@ -6,6 +6,8 @@
 //================MORE IMPORTANT: IMPLEMENT DIRECT REGISTER MANIPULATION INSTEAD OF DIGITAL WRITE
 //================IMPORTANT: Delay function in micro has a limit value of 16k. That is bugging our RES output in lower frequencies. Change to Delay past a freq value.
 
+// Next step: try putting the setting function back in setup
+
 // Testing instructions: 1) connect all the pins needed accoding to schematics in e_mail
 //                       2) provide a 1k resistor to use aswell
 //                       3) set cell 4 
