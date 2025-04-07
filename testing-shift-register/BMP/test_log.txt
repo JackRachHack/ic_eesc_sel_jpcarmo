@@ -1,6 +1,21 @@
-first test: 
+============First test: 
+
 It seems to be working fine, but there must be more analysis. 
 Waiting time was set to 2 cycle from 10. Top frequency was used. 
 After the logaritmic part showed by saida, there were a wild 
     signal (something about 30 maybe 40 percent higher or lower 
     than the function setting point) until next RES.
+
+Subtest: To the same level of light, write down the value almost
+        at setting point of the function for the 'saida' output.
+        Doing this for each cell (voltage):
+
+        Cell 0 = 2.92V
+        Cell 1 = 2.92V
+        Cell 2 = 3.68V
+        Cell 3 = 2.24V
+        Cell 4 = 2.52V
+        Cell 5 = 1.68V
+        Cell 6 = 1.68V
+        Cell 7 = 0.38...V (makes sense because it is the external 
+                        - not connected)
