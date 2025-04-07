@@ -99,7 +99,7 @@ void loop() {
 
     // Activating and deactivating SEL enable
     digitalWrite(SEL_en, HIGH);
-    (freq_en) ? delayMicroseconds(DELAY*4*10) : delayMicroseconds(24*10); // Time to see the signal of 'saida' rising. 
+    (freq_en) ? delayMicroseconds(DELAY*4*2) : delayMicroseconds(24*2); // Time to see the signal of 'saida' rising. 
     // You can modify if needed 
     // digitalWrite(SEL_en, LOW); // It doesnt make much of a difference if you LOW this while we are
     // measuring. 
