@@ -37,7 +37,7 @@ void setup() {
   digitalWrite(RES, 0);
   digitalWrite(VBIAS, 0); // Remember that VBIAS is a analog voltage, not digital, so, if 
   // it is ever needed, you must use a resistor in series with a capacitor to make the signal
-  // a steady voltage, since it is PWM. 
+  // a steady voltage, since the analogWrite output is PWM. 
 
   Serial.begin(115200);
   
