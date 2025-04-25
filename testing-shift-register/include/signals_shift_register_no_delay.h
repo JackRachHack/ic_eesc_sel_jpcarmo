@@ -57,47 +57,4 @@ void signals_shift_register_no_delay() {
   digitalWrite(CLK, LOW);
   digitalWrite(SHIFT_IN, bit0); // Value stored
   digitalWrite(CLK, HIGH);
-
-  // Cemetery (wrong order and wrong sensitive edge(descending))
-  //// bit 1
-  //digitalWrite(SHIFT_IN, bit1);
-  //digitalWrite(CLK, HIGH);
-  //digitalWrite(SHIFT_IN, bit1); // Value stored
-  //digitalWrite(CLK, LOW);
-//
-  //// bit 2
-  //digitalWrite(SHIFT_IN, bit2);
-  //digitalWrite(CLK, HIGH);
-  //digitalWrite(SHIFT_IN, bit2); // Value stored
-  //digitalWrite(CLK, LOW);
-//
-  //// bit 3
-  //digitalWrite(SHIFT_IN, bit3);
-  //digitalWrite(CLK, HIGH);
-  //digitalWrite(SHIFT_IN, bit3); // Value stored
-  //digitalWrite(CLK, LOW);
-//
-  //// bit 4
-  //digitalWrite(SHIFT_IN, bit4);
-  //digitalWrite(CLK, HIGH);
-  //digitalWrite(SHIFT_IN, bit4); // Value stored
-  //digitalWrite(CLK, LOW);
-//
-  //// bit 5
-  //digitalWrite(SHIFT_IN, bit5);
-  //digitalWrite(CLK, HIGH);
-  //digitalWrite(SHIFT_IN, bit5); // Value stored
-  //digitalWrite(CLK, LOW);
-//
-  //// bit 6
-  //digitalWrite(SHIFT_IN, bit6);
-  //digitalWrite(CLK, HIGH);
-  //digitalWrite(SHIFT_IN, bit6); // Value stored
-  //digitalWrite(CLK, LOW);
-//
-  //// bit 7
-  //digitalWrite(SHIFT_IN, bit7);
-  //digitalWrite(CLK, HIGH);
-  //digitalWrite(SHIFT_IN, bit7); // Value stored
-  //digitalWrite(CLK, LOW);
 }

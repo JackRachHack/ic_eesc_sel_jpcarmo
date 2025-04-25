@@ -19,3 +19,4 @@ bool freq_en = false;
 // Global variable for frequency of the clock in hertz (if its being used) (CANT EXCEED 42740!!!)
 int freq = 500;
 int DELAY; // To be defined and used in the signals functions
+int res_interval = 3*120; // How many microseconds until next reset signal
